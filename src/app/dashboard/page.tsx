@@ -3,7 +3,7 @@ import { auth } from "@/services/firebase";
 import { User, onAuthStateChanged } from "firebase/auth"
 import { useEffect, useState } from "react"
 import { useAuth } from "@/authMiddlewares";
-import Textearea from "@/components/textearea";
+import Textarea from "@/components/textarea";
 
 
 export default function Dashboard() {
@@ -32,7 +32,7 @@ useEffect(() => {
               <span className="text-red-500">?</span> 
             </h1>
             <form>
-              <Textearea
+              <Textarea
                 placeholder="Digite qual sua tarefa..."
               />
               <div className="flex items-center gap-2">
