@@ -10,5 +10,9 @@
 
 body{
   overflow-y: hidden;
+}
 
+.checkbox{
+  width: 20px;
+  height: 20px;
 }
