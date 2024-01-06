@@ -8,9 +8,6 @@
   box-sizing: border-box;
 }
 
-body{
-  overflow-y: hidden;
-}
 
 .checkbox{
   width: 20px;
