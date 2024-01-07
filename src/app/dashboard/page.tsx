@@ -9,7 +9,7 @@ import { FiShare2 } from "react-icons/fi"
 import { FaTrash } from "react-icons/fa"
 
 import { db } from "@/services/firebase";
-import { addDoc , collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { addDoc , collection, onSnapshot, orderBy, query, where, doc, deleteDoc } from "firebase/firestore";
 import Link from "next/link";
 
 interface ITasksProps {
@@ -94,6 +94,18 @@ useEffect(() => {
       loadTasks();
     }
   }, [user?.email]);
+
+  const handleCopiedTasks = async (id: string) => {
+    await navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_URL}/tasks/${id}`
+    )
+    console.log("copiado com sucesso!!")
+  }
+
+  const handleDeleteTasks = async (id: string) => {
+    const deleteTask =  doc(db , "tasks", id) 
+    await deleteDoc(deleteTask)
+  }
   
 
   return (
@@ -137,7 +149,7 @@ useEffect(() => {
           <article key={task.id} className="bg-zinc-200 text-zinc-950 rounded-md border p-3 mb-4">
             { task.public && <div className="flex items-center gap-3">
               <label className="text-sm bg-blue-500 px-6 py-1 text-zinc-100 rounded-md">PUBLICO</label>
-              <button className="cursor-pointer">
+              <button className="cursor-pointer" onClick={() => handleCopiedTasks(task.id)}>
                 <FiShare2 size={22} className="text-blue-500"/>
               </button>
             </div>}
@@ -149,7 +161,7 @@ useEffect(() => {
                   <p>{task.task}</p>
                 )}
               </p>
-              <button className="cursor-pointer">
+              <button className="cursor-pointer" onClick={() => handleDeleteTasks(task.id)}>
                 <FaTrash size={24} className="text-red-500"/>
               </button>
             </div>
